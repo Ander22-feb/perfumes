@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Perfumes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --gold: #d4af37;
+            --bg: #f4f4f4;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--primary);
+        }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1200&auto=format&fit=crop') center/cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            letter-spacing: 2px;
+        }
+        .subtitle { 
+            font-style: italic; 
+            font-weight: 300; 
+            color: var(--gold); 
+            font-size: 1.1rem;
+        }
+        
+        /* --- ESTILOS DE LOS BOTONES DE FILTRO --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2.5rem 1rem 0.5rem;
+        }
+        .filter-btn {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 0.8rem 2rem; /* Botones más grandes */
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem; /* Texto más grande */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+            padding-bottom: 1.5rem;
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+        }
+        .card img { 
+            width: 100%; 
+            height: 350px; 
+            object-fit: contain; 
+            background-color: #ffffff;
+        }
+        .card h3 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.5rem; 
+            margin: 1rem 0 0.5rem; 
+        }
+        .notes { 
+            font-size: 0.85rem; 
+            color: #666; 
+            font-weight: 600; 
+            margin-bottom: 0.5rem; 
+        }
+        .desc { 
+            font-size: 0.9rem; 
+            padding: 0 1.5rem; 
+            margin-bottom: 1rem; 
+            color: #444; 
+        }
+        .price { 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            color: var(--primary); 
+            margin-bottom: 1rem; 
+        }
+        .btn {
+            display: inline-block;
+            background-color: #25D366; 
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        .btn:hover { 
+            background-color: #128C7E; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CATÁLOGO DE PERFUMES</h1>
+        <p class="subtitle">El perfume es la forma más intensa del recuerdo ✨</p>
+    </header>
+    
+    <!-- Botones de Filtro -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterCategory(event, 'all')">Todos</button>
+        <button class="filter-btn" onclick="filterCategory(event, 'men')">Hombres</button>
+        <button class="filter-btn" onclick="filterCategory(event, 'women')">Mujeres</button>
+    </div>
+
+    <main class="grid">
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/RV4x2vnt/AFNAN-PM9-copia.jpg" alt="Afnan 9 PM">
+            <h3>Afnan 9 PM</h3>
+            <p class="notes">Dulce · Avainillado · Especiado</p>
+            <p class="desc">Una fragancia nocturna, magnética y seductora.</p>
+            <p class="price">S/ 140</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Afnan%209%20PM%20de%20S/%20140" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+      <!-- Lattafa Asad -->
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/hv3qyNnK/assad-copia.jpg" alt="Lattafa Asad">
+            <h3>Lattafa Asad</h3>
+            <p class="notes">Especiado · Amaderado · Ámbar</p>
+            <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
+            <p class="price">S/ 125</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Asad%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <!-- Asad Elixir -->
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/504dxfNb/assad-elixir-copia.jpg" alt="Asad Elixir">
+            <h3>Asad Elixir</h3>
+            <p class="notes">Dulce · Amaderado · Especiado</p>
+            <p class="desc">Elegancia profunda y misteriosa con un fondo cálido y envolvente.</p>
+            <p class="price">S/ 165</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Asad%20Elixir%20de%20S/%20165" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <!-- Club de Nuit Iconic -->
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/B6p3DXwJ/club-de-nuit-copia.jpg" alt="Club de Nuit Iconic">
+            <h3>Club de Nuit Iconic</h3>
+            <p class="notes">Cítrico · Aromático · Amaderado</p>
+            <p class="desc">Frescura magnética y azul con una estela elegante y duradera.</p>
+            <p class="price">S/ 165</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Club%20de%20Nuit%20Iconic%20de%20S/%20165" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <!-- Nitro Intense -->
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/QN6sdK7L/nitro-intense-copia.jpg" alt="Nitro Intense">
+            <h3>Nitro Intense</h3>
+            <p class="notes">Afrutado · Dulce · Amaderado</p>
+            <p class="desc">Una explosión frutal y nocturna que domina cualquier escenario.</p>
+            <p class="price">S/ 160</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Nitro%20Intense%20de%20S/%20160" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="women">
+            <img src="https://i.postimg.cc/Y24xkFY8/ARMAF-YUM-YUM-copia.jpg" alt="Armaf Yum Yum">
+            <h3>Armaf Yum Yum</h3>
+            <p class="notes">Gourmand · Dulce · Afrutado</p>
+            <p class="desc">Una explosión de dulzura con notas jugosas y divertidas.</p>
+            <p class="price">S/ 165</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Armaf%20Yum%20Yum%20de%20S/%20165" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/Bn35xwk9/CLUB-DE-NUIT-URBAN-copia.jpg" alt="Urban Man Elixir">
+            <h3>Urban Man Elixir</h3>
+            <p class="notes">Especiado · Amaderado · Cítrico</p>
+            <p class="desc">Frescura salvaje y masculinidad elegante.</p>
+            <p class="price">S/ 160</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Urban%20Man%20Elixir%20de%20S/%20160" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/s26pCf2k/HAWAS-ICE-copia.jpg" alt="Hawas Ice">
+            <h3>Hawas Ice</h3>
+            <p class="notes">Cítrico · Fresco · Amaderado</p>
+            <p class="desc">Frescura extrema con una explosión gélida y vibrante.</p>
+            <p class="price">S/ 150</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Ice%20de%20S/%20150" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="women">
+            <img src="https://i.postimg.cc/7Zq7CJGc/JARA-LATTAFA-copia.jpg" alt="Lattafa Yara">
+            <h3>Lattafa Yara</h3>
+            <p class="notes">Dulce · Tropical · Atalcado</p>
+            <p class="desc">Un postre hecho fragancia, suave y femenina.</p>
+            <p class="price">S/ 125</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Yara%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <!-- Liquid Brun (AGOTADO) -->
+        <article class="card" data-category="men" style="opacity: 0.6;">
+            <img src="https://i.postimg.cc/LsbZ0yCZ/LIQUID-BRUN-copia.jpg" alt="Liquid Brun">
+            <h3 style="color: #d9534f;">Liquid Brun (AGOTADO)</h3>
+            <p class="notes">Vainilla · Ámbar · Amaderado</p>
+            <p class="desc">Pura elegancia cálida con vainilla premium y ámbar.</p>
+            <p class="price">S/ 165</p>
+            <a href="#" class="btn" style="background-color: #999; pointer-events: none;">Sin Stock</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/Gtk8tbc3/ODYSSEY-AQUA-copia.jpg" alt="Odyssey Aqua">
+            <h3>Odyssey Aqua</h3>
+            <p class="notes">Acuático · Cítrico · Fresco</p>
+            <p class="desc">Una brisa marina refrescante y dinámica.</p>
+            <p class="price">S/ 155</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Aqua%20de%20S/%20155" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/8PmfVkKB/ODYSSEY-MANDARIN-SKY-copia.jpg" alt="Odyssey Mandarin Sky Elixir">
+            <h3>Odyssey Mandarin Sky Elixir</h3>
+            <p class="notes">Cítrico · Dulce · Ambarado</p>
+            <p class="desc">El dulzor vibrante de la mandarina con toques acaramelados.</p>
+            <p class="price">S/ 155</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Mandarin%20Sky%20Elixir%20de%20S/%20155" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/jdc2FgC0/OJOJ-copia.jpg" alt="Lattafa Khamrah">
+            <h3>Lattafa Khamrah</h3>
+            <p class="notes">Dulce · Especiado · Licoroso</p>
+            <p class="desc">Lujo absoluto con notas de dátiles, praliné y vainilla.</p>
+            <p class="price">S/ 140</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Khamrah%20de%20S/%20140" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/gJ3kq41q/ROME-copia.jpg" alt="Rome Pour Homme">
+            <h3>Rome Pour Homme</h3>
+            <p class="notes">Aromático · Amaderado · Fresco</p>
+            <p class="desc">Sofisticación clásica, pulcra y masculina.</p>
+            <p class="price">S/ 150</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Rome%20Pour%20Homme%20de%20S/%20150" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/mD4s8fvv/SKY-COPIA.jpg" alt="Odyssey Mandarin Sky">
+            <h3>Odyssey Mandarin Sky</h3>
+            <p class="notes">Cítrico · Dulce · Ambarado</p>
+            <p class="desc">Una jugosa explosión cítrica y enérgica que atrapa miradas.</p>
+            <p class="price">S/ 130</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mandarin%20Sky%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+
+        <article class="card" data-category="women">
+            <img src="https://i.postimg.cc/L4B8JCtX/YARA-YARA-copia.jpg" alt="Yara Tous">
+            <h3>Yara Tous</h3>
+            <p class="notes">Tropical · Afrutado · Dulce</p>
+            <p class="desc">Un cóctel caribeño exótico, vibrante y alegre.</p>
+            <p class="price">S/ 130</p>
+            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Yara%20Tous%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+        </article>
+    </main>
+
+    <!-- Script para que los botones funcionen -->
+    <script>
+        function filterCategory(event, category) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Quitar el color activo de todos los botones y ponérselo al que tocaste
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Mostrar u ocultar las tarjetas
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
