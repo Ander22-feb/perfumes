@@ -37,7 +37,6 @@
             font-size: 1.1rem;
         }
         
-        /* --- ESTILOS DE LOS BOTONES DE FILTRO --- */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -48,10 +47,10 @@
         .filter-btn {
             background-color: #e0e0e0;
             border: none;
-            padding: 0.8rem 2rem; /* Botones más grandes */
+            padding: 0.8rem 2rem;
             border-radius: 30px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem; /* Texto más grande */
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -78,6 +77,9 @@
             transition: transform 0.3s ease;
             text-align: center;
             padding-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card:hover { 
             transform: translateY(-5px); 
@@ -86,12 +88,15 @@
             width: 100%; 
             height: 350px; 
             object-fit: contain; 
-            background-color: #ffffff;
+            background-color: #e9e9e9; /* Fondo gris de carga */
         }
         .card h3 { 
             font-family: 'Playfair Display', serif; 
             font-size: 1.5rem; 
             margin: 1rem 0 0.5rem; 
+        }
+        .card h3.agotado-title {
+            color: #d9534f;
         }
         .notes { 
             font-size: 0.85rem; 
@@ -104,6 +109,7 @@
             padding: 0 1.5rem; 
             margin-bottom: 1rem; 
             color: #444; 
+            flex-grow: 1; /* Empuja el botón siempre hacia abajo */
         }
         .price { 
             font-size: 1.3rem; 
@@ -121,21 +127,32 @@
             font-weight: bold;
             font-size: 0.9rem;
             transition: background 0.3s;
+            margin: 0 auto;
+            width: fit-content;
         }
         .btn:hover { 
             background-color: #128C7E; 
         }
+        /* Clases optimizadas para productos agotados */
+        .card-agotado {
+            opacity: 0.6;
+        }
+        .btn-agotado {
+            background-color: #888888; 
+            pointer-events: none; 
+            cursor: not-allowed; 
+            opacity: 0.7;
+        }
     </style>
     <script defer src="/_vercel/insights/script.js"></script>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1QTBGC77PD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-1QTBGC77PD');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QTBGC77PD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1QTBGC77PD');
+    </script>
 </head>
 <body>
 
@@ -144,48 +161,43 @@
         <p class="subtitle">El perfume es la forma más intensa del recuerdo ✨</p>
     </header>
     
-    <!-- Botones de Filtro -->
     <div class="filter-container">
         <button class="filter-btn active" onclick="filterCategory(event, 'all')">Todos</button>
         <button class="filter-btn" onclick="filterCategory(event, 'men')">Hombres</button>
         <button class="filter-btn" onclick="filterCategory(event, 'women')">Mujeres</button>
     </div>
 
-  <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/cLzXwWyV/9-pm-rojo.jpg" alt="9 PM Rebel">
+    <main class="grid">
+        <!-- PRODUCTOS NUEVOS Y ACTIVOS -->
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/cLzXwWyV/9-pm-rojo.jpg" alt="9 PM Rebel" loading="lazy">
             <h3>9 PM Rebel</h3>
             <p class="notes">Afrutado · Amaderado · Dulce</p>
             <p class="desc">Una fragancia nocturna, magnética y de carácter rebelde.</p>
             <p class="price">S/ 165</p>
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%209%20PM%20Rebel%20de%20S/%20165" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
-  <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/kG7cqX8L/sublime-copia.jpg" alt="Bade'e Al Oud Sublime">
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/kG7cqX8L/sublime-copia.jpg" alt="Bade'e Al Oud Sublime" loading="lazy">
             <h3>Bade'e Al Oud Sublime</h3>
             <p class="notes">Afrutado · Tropical · Rosas</p>
             <p class="desc">Una explosión de frutas y rosas con el lujo del medio oriente.</p>
             <p class="price">S/ 130</p>
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Badee%20Al%20Oud%20Sublime%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
-  <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/K8GkDph9/Perfume-bottle-and-packaging-box-2K-20261011200924.jpg"alt="Haramain Amber Oud Gold Edition">
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/K8GkDph9/Perfume-bottle-and-packaging-box-2K-20261011200924.jpg" alt="Haramain Amber Oud Gold Edition" loading="lazy">
             <h3>Amber Oud Gold Edition</h3>
             <p class="notes">Dulce · Afrutado · Ozónico</p>
             <p class="desc">Una estela dorada, dulce y frutal que destila puro lujo.</p>
             <p class="price">S/ 195</p>
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Amber%20Oud%20Gold%20Edition%20de%20S/%20195" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
-    <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/RV4x2vnt/AFNAN-PM9-copia.jpg" alt="Afnan 9 PM">
-            <h3 style="color: #d9534f;">Afnan 9 PM (AGOTADO)</h3>
-            <p class="notes">Dulce · Avainillado · Especiado</p>
-            <p class="desc">Una fragancia nocturna, magnética y seductora.</p>
-            <p class="price">S/ 135</p>
-            <a class="btn" style="background-color: #888888; pointer-events: none; cursor: not-allowed; opacity: 0.7;">AGOTADO</a>
-        </article>
-      <!-- Nuevos Ingresos -->
-                    <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/13VRPtfc/odyssey-mega-copia.jpg" alt="Odyssey Mega">
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/13VRPtfc/odyssey-mega-copia.jpg" alt="Odyssey Mega" loading="lazy">
             <h3>Odyssey Mega</h3>
             <p class="notes">Cítrico · Aromático · Amaderado</p>
             <p class="desc">Una ola de frescura magnética y vibrante con un fondo elegante.</p>
@@ -193,8 +205,8 @@
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mega%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
 
-                <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/66HBvRZD/khamram-copia.jpg" alt="Khamrah Qahwa">
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/66HBvRZD/khamram-copia.jpg" alt="Khamrah Qahwa" loading="lazy">
             <h3>Khamrah Qahwa</h3>
             <p class="notes">Café · Dulce · Especiado</p>
             <p class="desc">El encanto irresistible del café tostado envuelto en notas dulces.</p>
@@ -203,7 +215,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/MKMJfLqv/sceptre-copia.jpg" alt="Sceptre Malachite">
+            <img src="https://i.postimg.cc/MKMJfLqv/sceptre-copia.jpg" alt="Sceptre Malachite" loading="lazy">
             <h3>Sceptre Malachite</h3>
             <p class="notes">Maracumango · Amaderado · Aromático</p>
             <p class="desc">Un aura misteriosa y sofisticada inspirada en la realeza.</p>
@@ -211,18 +223,8 @@
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Sceptre%20Malachite%20de%20S/%20135" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
 
-                <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/pTG3pfSr/asad-marron-copia.jpg" alt="Asad Bourbon">
-            <h3 style="color: #d9534f;">Asad Bourbon (AGOTADO)</h3>
-            <p class="notes">Vainilla · Especiado · Amaderado</p>
-            <p class="desc">Un carácter imponente con un corazón licoroso y envolvente.</p>
-            <p class="price">S/ 130</p>
-            <a class="btn" style="background-color: #888888; pointer-events: none; cursor: not-allowed; opacity: 0.7;">AGOTADO</a>
-        </article>
-
-
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/J4BSzB5N/hawas-kobra-copia.jpg" alt="Hawas Kobra">
+            <img src="https://i.postimg.cc/J4BSzB5N/hawas-kobra-copia.jpg" alt="Hawas Kobra" loading="lazy">
             <h3>Hawas Kobra</h3>
             <p class="notes">Afrutado · Fresco · Amaderado</p>
             <p class="desc">Seducción salvaje y vibrante para destacar en cualquier lugar.</p>
@@ -231,46 +233,16 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/pVgRCv0v/hawas-tropical-copia.jpg" alt="Hawas Tropical">
+            <img src="https://i.postimg.cc/pVgRCv0v/hawas-tropical-copia.jpg" alt="Hawas Tropical" loading="lazy">
             <h3>Hawas Tropical</h3>
             <p class="notes">Tropical · Frutal · Fresco</p>
             <p class="desc">Una explosión de frutas exóticas y frescura absoluta.</p>
             <p class="price">S/ 145</p>
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Tropical%20de%20S/%20145" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
-      <!-- Lattafa Asad (AGOTADO) -->
-        <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/hv3qyNnK/assad-copia.jpg" alt="Lattafa Asad">
-            <h3 style="color: #d9534f;">Lattafa Asad (AGOTADO)</h3>
-            <p class="notes">Especiado · Amaderado · Ámbar</p>
-            <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
-            <p class="price">S/ 125</p>
-            <a href="#" class="btn" style="background-color: #999; pointer-events: none;">Sin Stock</a>
-        </article>
 
-        <!-- Asad Elixir -->
-                <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/504dxfNb/assad-elixir-copia.jpg" alt="Asad Elixir">
-            <h3 style="color: #d9534f;">Asad Elixir (AGOTADO)</h3>
-            <p class="notes">Dulce · Amaderado · Especiado</p>
-            <p class="desc">Elegancia profunda y misteriosa con un fondo cálido y envolvente.</p>
-            <p class="price">S/ 165</p>
-            <a class="btn" style="background-color: #888888; pointer-events: none; cursor: not-allowed; opacity: 0.7;">AGOTADO</a>
-        </article>
-
-        <!-- Club de Nuit Iconic (AGOTADO) -->
-        <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/B6p3DXwJ/club-de-nuit-copia.jpg" alt="Club de Nuit Iconic">
-            <h3 style="color: #d9534f;">Club de Nuit Iconic (AGOTADO)</h3>
-            <p class="notes">Cítrico · Aromático · Amaderado</p>
-            <p class="desc">Frescura magnética y azul con una estela elegante y duradera.</p>
-            <p class="price">S/ 165</p>
-            <a href="#" class="btn" style="background-color: #999; pointer-events: none;">Sin Stock</a>
-        </article>
-
-        <!-- Nitro Intense -->
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/QN6sdK7L/nitro-intense-copia.jpg" alt="Nitro Intense">
+            <img src="https://i.postimg.cc/QN6sdK7L/nitro-intense-copia.jpg" alt="Nitro Intense" loading="lazy">
             <h3>Nitro Intense</h3>
             <p class="notes">Afrutado · Dulce · Amaderado</p>
             <p class="desc">Una explosión frutal y nocturna que domina cualquier escenario.</p>
@@ -278,26 +250,8 @@
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Nitro%20Intense%20de%20S/%20150" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
 
-                <article class="card" data-category="women" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/Y24xkFY8/ARMAF-YUM-YUM-copia.jpg" alt="Armaf Yum Yum">
-            <h3 style="color: #d9534f;">Armaf Yum Yum (AGOTADO)</h3>
-            <p class="notes">Gourmand · Dulce · Afrutado</p>
-            <p class="desc">Una explosión de dulzura con notas jugosas y divertidas.</p>
-            <p class="price">S/ 155</p>
-            <a class="btn" style="background-color: #888888; pointer-events: none; cursor: not-allowed; opacity: 0.7;">AGOTADO</a>
-        </article>
-
-        <article class="card" data-category="men" style="opacity: 0.6;">
-            <img src="https://i.postimg.cc/Bn35xwk9/CLUB-DE-NUIT-URBAN-copia.jpg" alt="Urban Man Elixir">
-            <h3 style="color: #d9534f;">Urban Man Elixir (AGOTADO)</h3>
-            <p class="notes">Especiado · Amaderado · Cítrico</p>
-            <p class="desc">Frescura salvaje y masculinidad elegante.</p>
-            <p class="price">S/ 160</p>
-            <a class="btn" style="background-color: #888888; pointer-events: none; cursor: not-allowed; opacity: 0.7;">AGOTADO</a>
-        </article>
-
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/s26pCf2k/HAWAS-ICE-copia.jpg" alt="Hawas Ice">
+            <img src="https://i.postimg.cc/s26pCf2k/HAWAS-ICE-copia.jpg" alt="Hawas Ice" loading="lazy">
             <h3>Hawas Ice</h3>
             <p class="notes">Cítrico · Fresco · Amaderado</p>
             <p class="desc">Frescura extrema con una explosión gélida y vibrante.</p>
@@ -306,7 +260,7 @@
         </article>
 
         <article class="card" data-category="women">
-            <img src="https://i.postimg.cc/7Zq7CJGc/JARA-LATTAFA-copia.jpg" alt="Lattafa Yara">
+            <img src="https://i.postimg.cc/7Zq7CJGc/JARA-LATTAFA-copia.jpg" alt="Lattafa Yara" loading="lazy">
             <h3>Lattafa Yara</h3>
             <p class="notes">Dulce · Tropical · Atalcado</p>
             <p class="desc">Un postre hecho fragancia, suave y femenina.</p>
@@ -314,9 +268,8 @@
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Yara%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
 
-        <!-- Liquid Brun (RESTAURADO CON NUEVO PRECIO) -->
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/Y0782hrm/LIQUID-BRUN-copia.jpg" alt="Liquid Brun">
+            <img src="https://i.postimg.cc/Y0782hrm/LIQUID-BRUN-copia.jpg" alt="Liquid Brun" loading="lazy">
             <h3>Liquid Brun</h3>
             <p class="notes">Vainilla · Ámbar · Amaderado</p>
             <p class="desc">Pura elegancia cálida con vainilla premium y ámbar.</p>
@@ -325,7 +278,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/Gtk8tbc3/ODYSSEY-AQUA-copia.jpg" alt="Odyssey Aqua">
+            <img src="https://i.postimg.cc/Gtk8tbc3/ODYSSEY-AQUA-copia.jpg" alt="Odyssey Aqua" loading="lazy">
             <h3>Odyssey Aqua</h3>
             <p class="notes">Acuático · Cítrico · Fresco</p>
             <p class="desc">Una brisa marina refrescante y dinámica.</p>
@@ -334,7 +287,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/8PmfVkKB/ODYSSEY-MANDARIN-SKY-copia.jpg" alt="Odyssey Mandarin Sky Elixir">
+            <img src="https://i.postimg.cc/8PmfVkKB/ODYSSEY-MANDARIN-SKY-copia.jpg" alt="Odyssey Mandarin Sky Elixir" loading="lazy">
             <h3>Odyssey Mandarin Sky Elixir</h3>
             <p class="notes">Cítrico · Dulce · Ambarado</p>
             <p class="desc">El dulzor vibrante de la mandarina con toques acaramelados.</p>
@@ -343,7 +296,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/jdc2FgC0/OJOJ-copia.jpg" alt="Lattafa Khamrah">
+            <img src="https://i.postimg.cc/jdc2FgC0/OJOJ-copia.jpg" alt="Lattafa Khamrah" loading="lazy">
             <h3>Lattafa Khamrah</h3>
             <p class="notes">Dulce · Especiado · Licoroso</p>
             <p class="desc">Lujo absoluto con notas de dátiles, praliné y vainilla.</p>
@@ -352,7 +305,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/gJ3kq41q/ROME-copia.jpg" alt="Rome Pour Homme">
+            <img src="https://i.postimg.cc/gJ3kq41q/ROME-copia.jpg" alt="Rome Pour Homme" loading="lazy">
             <h3>Rome Pour Homme</h3>
             <p class="notes">Aromático · Amaderado · Fresco</p>
             <p class="desc">Sofisticación clásica, pulcra y masculina.</p>
@@ -361,7 +314,7 @@
         </article>
 
         <article class="card" data-category="men">
-            <img src="https://i.postimg.cc/mD4s8fvv/SKY-COPIA.jpg" alt="Odyssey Mandarin Sky">
+            <img src="https://i.postimg.cc/mD4s8fvv/SKY-COPIA.jpg" alt="Odyssey Mandarin Sky" loading="lazy">
             <h3>Odyssey Mandarin Sky</h3>
             <p class="notes">Cítrico · Dulce · Ambarado</p>
             <p class="desc">Una jugosa explosión cítrica y enérgica que atrapa miradas.</p>
@@ -370,29 +323,91 @@
         </article>
 
         <article class="card" data-category="women">
-            <img src="https://i.postimg.cc/L4B8JCtX/YARA-YARA-copia.jpg" alt="Yara Tous">
+            <img src="https://i.postimg.cc/L4B8JCtX/YARA-YARA-copia.jpg" alt="Yara Tous" loading="lazy">
             <h3>Yara Tous</h3>
             <p class="notes">Tropical · Afrutado · Dulce</p>
             <p class="desc">Un cóctel caribeño exótico, vibrante y alegre.</p>
             <p class="price">S/ 130</p>
             <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Yara%20Tous%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
         </article>
+
+        <!-- PRODUCTOS AGOTADOS -->
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/RV4x2vnt/AFNAN-PM9-copia.jpg" alt="Afnan 9 PM" loading="lazy">
+            <h3 class="agotado-title">Afnan 9 PM (AGOTADO)</h3>
+            <p class="notes">Dulce · Avainillado · Especiado</p>
+            <p class="desc">Una fragancia nocturna, magnética y seductora.</p>
+            <p class="price">S/ 135</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/pTG3pfSr/asad-marron-copia.jpg" alt="Asad Bourbon" loading="lazy">
+            <h3 class="agotado-title">Asad Bourbon (AGOTADO)</h3>
+            <p class="notes">Vainilla · Especiado · Amaderado</p>
+            <p class="desc">Un carácter imponente con un corazón licoroso y envolvente.</p>
+            <p class="price">S/ 130</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/hv3qyNnK/assad-copia.jpg" alt="Lattafa Asad" loading="lazy">
+            <h3 class="agotado-title">Lattafa Asad (AGOTADO)</h3>
+            <p class="notes">Especiado · Amaderado · Ámbar</p>
+            <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
+            <p class="price">S/ 125</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/504dxfNb/assad-elixir-copia.jpg" alt="Asad Elixir" loading="lazy">
+            <h3 class="agotado-title">Asad Elixir (AGOTADO)</h3>
+            <p class="notes">Dulce · Amaderado · Especiado</p>
+            <p class="desc">Elegancia profunda y misteriosa con un fondo cálido y envolvente.</p>
+            <p class="price">S/ 165</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/B6p3DXwJ/club-de-nuit-copia.jpg" alt="Club de Nuit Iconic" loading="lazy">
+            <h3 class="agotado-title">Club de Nuit Iconic (AGOTADO)</h3>
+            <p class="notes">Cítrico · Aromático · Amaderado</p>
+            <p class="desc">Frescura magnética y azul con una estela elegante y duradera.</p>
+            <p class="price">S/ 165</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="women">
+            <img src="https://i.postimg.cc/Y24xkFY8/ARMAF-YUM-YUM-copia.jpg" alt="Armaf Yum Yum" loading="lazy">
+            <h3 class="agotado-title">Armaf Yum Yum (AGOTADO)</h3>
+            <p class="notes">Gourmand · Dulce · Afrutado</p>
+            <p class="desc">Una explosión de dulzura con notas jugosas y divertidas.</p>
+            <p class="price">S/ 155</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
+            <img src="https://i.postimg.cc/Bn35xwk9/CLUB-DE-NUIT-URBAN-copia.jpg" alt="Urban Man Elixir" loading="lazy">
+            <h3 class="agotado-title">Urban Man Elixir (AGOTADO)</h3>
+            <p class="notes">Especiado · Amaderado · Cítrico</p>
+            <p class="desc">Frescura salvaje y masculinidad elegante.</p>
+            <p class="price">S/ 160</p>
+            <a class="btn btn-agotado">AGOTADO</a>
+        </article>
     </main>
 
-    <!-- Script para que los botones funcionen -->
     <script>
         function filterCategory(event, category) {
             const cards = document.querySelectorAll('.card');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            // Quitar el color activo de todos los botones y ponérselo al que tocaste
             buttons.forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
 
-            // Mostrar u ocultar las tarjetas
             cards.forEach(card => {
+                // Aquí el display debe ser 'flex', NO 'block', para mantener la altura uniforme
                 if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'block';
+                    card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
                 }
