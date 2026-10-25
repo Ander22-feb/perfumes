@@ -3,440 +3,889 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Perfumes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <title>Catálogo de Perfumes | Edición Realeza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #1a1a1a;
-            --gold: #d4af37;
-            --bg: #f4f4f4;
+            /* Tokens de Color - Tema Sceptre Malachite (Verde Esmeralda Total & Dorado) */
+            --color-emerald-bg: #09261c; /* Fondo general de toda la página */
+            --color-emerald-card: #113f2f; /* Fondo de las tarjetas de perfumes */
+            --color-emerald-deep: #061a13;
+            --color-gold-accent: #c5a059; /* Dorado elegante */
+            --color-gold-light: #dfc288;
+            --color-paper-white: #ffffff;
+            --color-text-muted: #b0c2b9;
+            
+            /* Tipografía y Espaciado */
+            --font-sf-pro: 'Inter', system-ui, -apple-system, sans-serif;
+            --radius-cards: 28px;
+            --radius-buttons: 980px;
+            --page-max-width: 1440px;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            background-color: var(--bg);
-            color: var(--primary);
+            font-family: var(--font-sf-pro);
+            background-color: var(--color-emerald-bg);
+            color: var(--color-paper-white);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
         }
+
+        /* =========================================================
+            1. BLOQUE HERO (Cabecera Esmeralda Profunda)
+            ========================================================= */
         header {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.postimg.cc/rFV8Mv02/Liquid-waves-simulating-perfume-2K-20261018213448.jpg') center/cover;
-            color: white;
-            text-align: center;
-            padding: 5rem 1rem;
+            background: linear-gradient(135deg, #061a13 0%, #09261c 100%);
+            height: 100vh;
+            min-height: 800px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--color-gold-accent);
         }
+
+        .hero-marquee-viewport {
+            position: absolute;
+            top: 34%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 60vh; 
+            perspective: 1400px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: galleryEntrance 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .hero-marquee-wrapper {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .hero-track {
+            display: flex;
+            gap: 28px; 
+            padding-right: 28px; 
+            align-items: center;
+        }
+
+        .hero-perfume {
+            height: 58vh; 
+            max-height: 650px; 
+            object-fit: contain;
+            will-change: transform, filter;
+            pointer-events: none;
+            mix-blend-mode: normal; 
+            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.6));
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            transition: transform 0.1s linear;
+        }
+
+        .hero-bottom-row {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            max-width: var(--page-max-width);
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
+            z-index: 10;
+        }
+
+        .hero-text { text-align: left; max-width: 700px; }
+
+        .kicker {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-gold-accent);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
         h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.5rem; 
-            margin-bottom: 0.5rem; 
-            letter-spacing: 2px;
+            font-size: clamp(34px, 5vw, 76px);
+            font-weight: 600;
+            line-height: 1.04;
+            letter-spacing: -0.02em;
+            color: var(--color-paper-white);
+            margin-bottom: 8px;
         }
-        .subtitle { 
-            font-style: italic; 
-            font-weight: 300; 
-            color: var(--gold); 
-            font-size: 1.1rem;
+
+        .text-gradient {
+            background: linear-gradient(90deg, #ffffff, var(--color-gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
+
+        .client-subtitle {
+            font-size: clamp(15px, 2vw, 21px);
+            font-style: italic;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        .hero-buy-pill {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px 8px 8px 20px;
+            border-radius: var(--radius-buttons);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        .hero-buy-pill .price {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--color-paper-white);
+        }
+
+        /* =========================================================
+            2. NAVEGACIÓN Y FILTROS STICKY
+            ========================================================= */
         .filter-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 1rem;
-            padding: 2.5rem 1rem 0.5rem;
-        }
-        .filter-btn {
-            background-color: #e0e0e0;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            gap: 12px;
+            padding: 24px 20px;
+            background-color: rgba(9, 38, 28, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
         }
 
+        .filter-btn {
+            background-color: transparent;
+            color: var(--color-text-muted);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 8px 20px;
+            border-radius: var(--radius-buttons);
+            font-family: var(--font-sf-pro);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .filter-btn.active {
+            background-color: var(--color-gold-accent);
+            color: var(--color-emerald-deep);
+            border-color: var(--color-gold-accent);
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+        }
+
+        .filter-btn:focus-visible {
+            outline: 2px solid var(--color-gold-accent);
+            outline-offset: 2px;
+        }
+
+        /* =========================================================
+            3. GRID Y TARJETAS DE PRODUCTO
+            ========================================================= */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 3rem 5%;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            padding: 60px 24px 120px;
+            max-width: var(--page-max-width);
             margin: 0 auto;
         }
+
         .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            text-align: center;
-            padding-bottom: 1.5rem;
+            background-color: var(--color-emerald-card);
+            border-radius: var(--radius-cards);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            padding: 32px 28px;
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform;
         }
-        .card:hover { 
-            transform: translateY(-5px); 
+
+        .card.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
+
         .card img { 
             width: 100%; 
-            height: 350px; 
+            height: 300px; 
             object-fit: contain; 
-            background-color: #e9e9e9; /* Fondo gris de carga */
+            margin-bottom: 24px;
+            transform-origin: center bottom;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
+            image-rendering: -webkit-optimize-contrast;
         }
+
+        .card:hover img {
+            transform: scale(1.08) rotateY(-8deg) rotateX(4deg);
+            filter: drop-shadow(-10px 20px 25px rgba(0,0,0,0.6));
+        }
+
+        .card-content { display: flex; flex-direction: column; flex-grow: 1; text-align: left; }
+
         .card h3 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.5rem; 
-            margin: 1rem 0 0.5rem; 
+            font-size: 21px; font-weight: 600; line-height: 1.2;
+            letter-spacing: 0.011em; color: var(--color-paper-white); margin-bottom: 4px;
         }
-        .card h3.agotado-title {
-            color: #d9534f;
-        }
+
         .notes { 
-            font-size: 0.85rem; 
-            color: #666; 
-            font-weight: 600; 
-            margin-bottom: 0.5rem; 
+            font-size: 12px; font-weight: 600; color: var(--color-gold-accent); 
+            margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.02em;
         }
+
         .desc { 
-            font-size: 0.9rem; 
-            padding: 0 1.5rem; 
-            margin-bottom: 1rem; 
-            color: #444; 
-            flex-grow: 1; /* Empuja el botón siempre hacia abajo */
+            font-size: 14px; line-height: 1.47; color: var(--color-text-muted); 
+            margin-bottom: 32px; flex-grow: 1;
         }
-        .price { 
-            font-size: 1.3rem; 
-            font-weight: bold; 
-            color: var(--primary); 
-            margin-bottom: 1rem; 
-        }
+
+        .action-stack { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .price { font-size: 17px; font-weight: 600; color: var(--color-gold-light); }
+
         .btn {
-            display: inline-block;
-            background-color: #25D366; 
-            color: white;
-            text-decoration: none;
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-            margin: 0 auto;
-            width: fit-content;
+            display: inline-flex; align-items: center; justify-content: center;
+            background-color: var(--color-gold-accent); color: var(--color-emerald-deep);
+            text-decoration: none; padding: 10px 20px; border-radius: var(--radius-buttons);
+            font-weight: 600; font-size: 15px; letter-spacing: -0.01em;
+            transition: opacity 0.2s, transform 0.2s; border: none;
+            cursor: pointer;
         }
-        .btn:hover { 
-            background-color: #128C7E; 
-        }
-        /* Clases optimizadas para productos agotados */
-        .card-agotado {
-            opacity: 0.6;
-        }
+
+        .btn:hover { opacity: 0.9; }
+        .btn:active { transform: scale(0.95); }
+
+        .card-agotado img { opacity: 0.35; filter: grayscale(90%); }
+        .card-agotado:hover img { transform: none; filter: grayscale(90%); } 
+        .card-agotado h3 { color: #7a9a8c; }
         .btn-agotado {
-            background-color: #888888; 
-            pointer-events: none; 
-            cursor: not-allowed; 
-            opacity: 0.7;
+            background-color: #1c352c; color: #7a9a8c;
+            pointer-events: none; cursor: not-allowed; 
+        }
+
+        /* =========================================================
+            4. KEYFRAMES Y RESPONSIVE
+            ========================================================= */
+        @keyframes galleryEntrance {
+            from { opacity: 0; transform: translate(-50%, -30%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px) translateX(-50%); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                height: 75vh; 
+                min-height: 520px;
+            }
+            .hero-marquee-viewport {
+                top: 28%;
+                height: 30vh; 
+            }
+            .hero-track {
+                gap: 22px !important; 
+                padding-right: 22px !important;
+            }
+            .hero-perfume {
+                height: 25vh !important; 
+                max-height: 180px !important;
+            }
+            .hero-bottom-row {
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 10px;
+                padding: 0 20px; 
+                bottom: 25px;
+            }
+            .hero-buy-pill { align-self: flex-start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, .hero-marquee-viewport, .hero-bottom-row, .card, .card img {
+                animation: none !important; transition: none !important;
+                opacity: 1 !important; transform: none !important; 
+            }
+            .hero-perfume { filter: none !important; }
+            .hero-bottom-row { transform: translateX(-50%) !important; }
         }
     </style>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QTBGC77PD"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1QTBGC77PD');
-    </script>
 </head>
 <body>
 
     <header>
-        <h1>CATÁLOGO DE PERFUMES</h1>
-        <p class="subtitle">El perfume es la forma más intensa del recuerdo ✨</p>
+        <!-- MOTOR DE RENDERIZADO 3D -->
+        <div class="hero-marquee-viewport">
+            <div class="hero-marquee-wrapper" id="marqueeWrapper">
+                <div class="hero-track" id="track1">
+                    <img src="https://i.postimg.cc/HxrvcWpN/asad-elixir.png" alt="Asad Elixir" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/nr7d2d90/9pm.png" alt="9Pm" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/KvPqgHyd/amber-oud.png" alt="Amber" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/Qdj6gJ8f/Bade-sublime.png" alt="Bade oud" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/7LWmkvgm/hawas-ice.png" alt="Hawas ice" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/XNFxTzX2/hawas-kobra.png" alt="Hawas kobra" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/T329520J/khamrha-latafa.png" alt="Khamrah Lattafa" class="hero-perfume" loading="eager">
+                    <img src="https://i.postimg.cc/GmMjF0S9/rome.png" alt="Rome" class="hero-perfume" loading="eager">
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-bottom-row">
+            <div class="hero-text">
+                <p class="kicker">COLECCIÓN PREMIUM</p>
+                <h1>Siente. <span class="text-gradient">Impacta. Cautiva.</span></h1>
+                <p class="client-subtitle">El perfume es la forma más intensa del recuerdo ✨</p>
+            </div>
+            <div class="hero-buy-pill">
+                <span class="price">Desde S/ 100</span>
+                <a href="#catalogo" class="btn" onclick="document.querySelector('.grid').scrollIntoView({behavior: 'smooth'})">Descubrir</a>
+            </div>
+        </div>
     </header>
     
-    <div class="filter-container">
-        <button class="filter-btn active" onclick="filterCategory(event, 'all')">Todos</button>
-        <button class="filter-btn" onclick="filterCategory(event, 'men')">Hombres</button>
-        <button class="filter-btn" onclick="filterCategory(event, 'women')">Mujeres</button>
+    <div class="filter-container" role="tablist">
+        <button class="filter-btn active" role="tab" aria-selected="true" onclick="filterCategory(event, 'all')">Todos</button>
+        <button class="filter-btn" role="tab" aria-selected="false" onclick="filterCategory(event, 'men')">Hombres</button>
+        <button class="filter-btn" role="tab" aria-selected="false" onclick="filterCategory(event, 'women')">Mujeres</button>
     </div>
 
-    <!-- EL CONTENEDOR GRID FALTANTE HA SIDO RESTAURADO AQUÍ -->
-    <main class="grid">
+    <!-- CATÁLOGO COMPLETO -->
+    <main class="grid" id="catalogo">
+        
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/kG7cqX8L/sublime-copia.jpg" alt="Bade'e Al Oud Sublime" loading="lazy">
-            <h3>Bade'e Al Oud Sublime</h3>
-            <p class="notes">Afrutado · Tropical · Rosas</p>
-            <p class="desc">Una explosión de frutas y rosas con el lujo del medio oriente.</p>
-            <p class="price">S/ 130</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Badee%20Al%20Oud%20Sublime%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Afrutado · Tropical · Rosas</p>
+                <h3>Bade'e Al Oud Sublime</h3>
+                <p class="desc">Una explosión de frutas y rosas con el lujo del medio oriente.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Badee%20Al%20Oud%20Sublime%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
     
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/9QGJ31sj/Whats-App-Image-2026-10-15-at-2-26-58-2K-20261015145521.jpg" alt="Club de Nuit Intense Man" loading="lazy">
-            <h3>Club de Nuit Intense</h3>
-            <p class="notes">Cítrico · Ahumado · Cuero</p>
-            <p class="desc">Poder absoluto, misterio y una estela ahumada inconfundible y seductora.</p>
-            <p class="price">S/ 140</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Club%20de%20Nuit%20Intense%20Man%20de%20S/%20140" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Ahumado · Cuero</p>
+                <h3>Club de Nuit Intense</h3>
+                <p class="desc">Poder absoluto, misterio y una estela ahumada inconfundible y seductora.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 140</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Club%20de%20Nuit%20Intense%20Man%20de%20S/%20140" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/FRfT6m4j/Whats-App-Image-2026-10-15-at-2-27-40-2K-20261015145336.jpg" alt="Supremacy Collector's Edition" loading="lazy">
-            <h3>Supremacy Collector's</h3>
-            <p class="notes">Afrutado · Cítrico · Ámbar</p>
-            <p class="desc">Lujo y exclusividad embotellados con un aura frutal, elegante y duradera.</p>
-            <p class="price">S/ 190</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Supremacy%20Collector's%20Edition%20de%20S/%20190" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Afrutado · Cítrico · Ámbar</p>
+                <h3>Supremacy Collector's</h3>
+                <p class="desc">Lujo y exclusividad embotellados con un aura frutal, elegante y duradera.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 190</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Supremacy%20Collector's%20Edition%20de%20S/%20190" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/K8GkDph9/Perfume-bottle-and-packaging-box-2K-20261011200924.jpg" alt="Haramain Amber Oud Gold Edition" loading="lazy">
-            <h3>Amber Oud Gold Edition</h3>
-            <p class="notes">Dulce · Afrutado · Ozónico</p>
-            <p class="desc">Una estela dorada, dulce y frutal que destila puro lujo.</p>
-            <p class="price">S/ 195</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Amber%20Oud%20Gold%20Edition%20de%20S/%20195" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Dulce · Afrutado · Ozónico</p>
+                <h3>Amber Oud Gold Edition</h3>
+                <p class="desc">Una estela dorada, dulce y frutal que destila puro lujo.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 195</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Amber%20Oud%20Gold%20Edition%20de%20S/%20195" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/tCKpN2Zv/odyssey-mega-copia-jpg-2K-20261011231119.jpg" alt="Odyssey Mega" loading="lazy">
-            <h3>Odyssey Mega</h3>
-            <p class="notes">Cítrico · Aromático · Amaderado</p>
-            <p class="desc">Una ola de frescura magnética y vibrante con un fondo elegante.</p>
-            <p class="price">S/ 125</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mega%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Aromático · Amaderado</p>
+                <h3>Odyssey Mega</h3>
+                <p class="desc">Una ola de frescura magnética y vibrante con un fondo elegante.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 125</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mega%20de%20S/%20125" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/1zPHw19H/Khamrah-Qahwa.jpg" alt="Khamrah Qahwa" loading="lazy">
-            <h3>Khamrah Qahwa</h3>
-            <p class="notes">Café · Dulce · Especiado</p>
-            <p class="desc">El encanto irresistible del café tostado envuelto en notas dulces.</p>
-            <p class="price">S/ 130</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Khamrah%20Qahwa%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Café · Dulce · Especiado</p>
+                <h3>Khamrah Qahwa</h3>
+                <p class="desc">El encanto irresistible del café tostado envuelto en notas dulces.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Khamrah%20Qahwa%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/pLQbYxth/hawas-kobra-copia-jpg-2K-20261011224514.jpg" alt="Hawas Kobra" loading="lazy">
-            <h3>Hawas Kobra</h3>
-            <p class="notes">Cítrico · Fresco · Especiado</p>
-            <p class="desc">Seducción salvaje y vibrante para destacar en cualquier lugar.</p>
-            <p class="price">S/ 145</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Kobra%20de%20S/%20145" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Fresco · Especiado</p>
+                <h3>Hawas Kobra</h3>
+                <p class="desc">Seducción salvaje y vibrante para destacar en cualquier lugar.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 145</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Kobra%20de%20S/%20145" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/Vv02SPRs/hawas-tropical-copia-jpg-2K-20261011224302.jpg" alt="Hawas Tropical" loading="lazy">
-            <h3>Hawas Tropical</h3>
-            <p class="notes">Tropical · Frutal · Fresco</p>
-            <p class="desc">Una explosión de frutas exóticas y frescura absoluta.</p>
-            <p class="price">S/ 145</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Tropical%20de%20S/%20145" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Tropical · Frutal · Fresco</p>
+                <h3>Hawas Tropical</h3>
+                <p class="desc">Una explosión de frutas exóticas y frescura absoluta.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 145</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Tropical%20de%20S/%20145" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
         
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/9FYHyC28/hawas-ice.jpg" alt="Hawas Ice" loading="lazy">
-            <h3>Hawas Ice</h3>
-            <p class="notes">Acuático · Fresco · Afrutado</p>
-            <p class="desc"> Una explosión frutal y acuática con una frescura helada de larga duración.</p>
-            <p class="price">S/ 145</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Ice%20de%20S/%20145" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Acuático · Fresco · Afrutado</p>
+                <h3>Hawas Ice</h3>
+                <p class="desc">Una explosión frutal y acuática con una frescura helada de larga duración.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 145</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Hawas%20Ice%20de%20S/%20145" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/D0zL57Dh/odyssey-mandarin-sky.jpg" alt="Odyssey Mandarin Sky Elixir" loading="lazy">
-            <h3>Odyssey Mandarin Sky Elixir</h3>
-            <p class="notes">Cítrico · Dulce · Ambarado</p>
-            <p class="desc">El dulzor vibrante de la mandarina con toques acaramelados.</p>
-            <p class="price">S/ 145</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Mandarin%20Sky%20Elixir%20de%20S/%20145" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Dulce · Ambarado</p>
+                <h3>Odyssey Mandarin Sky Elixir</h3>
+                <p class="desc">El dulzor vibrante de la mandarina con toques acaramelados.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 145</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Mandarin%20Sky%20Elixir%20de%20S/%20145" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/HWSQn7cW/Lattafa-Khamrah.jpg" alt="Lattafa Khamrah" loading="lazy">
-            <h3>Lattafa Khamrah</h3>
-            <p class="notes">Dulce · Especiado · Licoroso</p>
-            <p class="desc">Lujo absoluto con notas de dátiles, praliné y vainilla.</p>
-            <p class="price">S/ 125</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Khamrah%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Dulce · Especiado · Licoroso</p>
+                <h3>Lattafa Khamrah</h3>
+                <p class="desc">Lujo absoluto con notas de dátiles, praliné y vainilla.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 125</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Khamrah%20de%20S/%20125" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/15fDq5wj/Rome-Pour-Homme.jpg" alt="Rome Pour Homme" loading="lazy">
-            <h3>Rome Pour Homme</h3>
-            <p class="notes">Aromático · Amaderado · Fresco</p>
-            <p class="desc">Sofisticación clásica, pulcra y masculina.</p>
-            <p class="price">S/ 150</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Rome%20Pour%20Homme%20de%20S/%20150" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Aromático · Amaderado · Fresco</p>
+                <h3>Rome Pour Homme</h3>
+                <p class="desc">Sofisticación clásica, pulcra y masculina.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 150</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Rome%20Pour%20Homme%20de%20S/%20150" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/JzXJp6TN/odyssey-sky.jpg" alt="Odyssey Mandarin Sky" loading="lazy">
-            <h3>Odyssey Mandarin Sky</h3>
-            <p class="notes">Cítrico · Dulce · Ambarado</p>
-            <p class="desc">Una jugosa explosión cítrica y enérgica que atrapa miradas.</p>
-            <p class="price">S/ 130</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mandarin%20Sky%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Dulce · Ambarado</p>
+                <h3>Odyssey Mandarin Sky</h3>
+                <p class="desc">Una jugosa explosión cítrica y enérgica que atrapa miradas.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Odyssey%20Mandarin%20Sky%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="women">
             <img src="https://i.postimg.cc/9fV4JWww/Yara-yara.jpg" alt="Yara Tous" loading="lazy">
-            <h3>Yara Tous</h3>
-            <p class="notes">Tropical · Afrutado · Dulce</p>
-            <p class="desc">Un cóctel caribeño exótico, vibrante y alegre.</p>
-            <p class="price">S/ 130</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Yara%20Tous%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Tropical · Afrutado · Dulce</p>
+                <h3>Yara Tous</h3>
+                <p class="desc">Un cóctel caribeño exótico, vibrante y alegre.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Yara%20Tous%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/wMt37MZ2/9pm-normal.jpg" alt="Afnan 9 PM" loading="lazy">
-            <h3>Afnan 9 PM</h3>
-            <p class="notes">Dulce · Avainillado · Especiado</p>
-            <p class="desc">Una fragancia nocturna, magnética y seductora.</p>
-            <p class="price">S/ 130</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Afnan%209%20PM%20de%20S/%20130" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Dulce · Avainillado · Especiado</p>
+                <h3>Afnan 9 PM</h3>
+                <p class="desc">Una fragancia nocturna, magnética y seductora.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Afnan%209%20PM%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/C5dSm24Y/9-pm-rojo-jpg-2K-20261011215433.jpg" alt="9 PM Rebel" loading="lazy">
-            <h3>9 PM Rebel</h3>
-            <p class="notes">Afrutado · Amaderado · Dulce</p>
-            <p class="desc">Una fragancia nocturna, magnética y de carácter rebelde.</p>
-            <p class="price">S/ 159</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%209%20PM%20Rebel%20de%20S/%20159" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Afrutado · Amaderado · Dulce</p>
+                <h3>9 PM Rebel</h3>
+                <p class="desc">Una fragancia nocturna, magnética y de carácter rebelde.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 159</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%209%20PM%20Rebel%20de%20S/%20159" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/52Wj2x3j/asad-marron.jpg" alt="Asad Bourbon" loading="lazy">
-            <h3>Asad Bourbon</h3>
-            <p class="notes">Vainilla · Especiado · Amaderado</p>
-            <p class="desc">Un carácter imponente con un corazón licoroso y envolvente.</p>
-            <p class="price">S/ 125</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Asad%20Bourbon%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Vainilla · Especiado · Amaderado</p>
+                <h3>Asad Bourbon</h3>
+                <p class="desc">Un carácter imponente con un corazón licoroso y envolvente.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 125</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Asad%20Bourbon%20de%20S/%20125" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/5jd9y3wJ/asad-elixir.jpg" alt="Asad Elixir" loading="lazy">
-            <h3>Asad Elixir</h3>
-            <p class="notes">Dulce · Amaderado · Especiado</p>
-            <p class="desc">Elegancia profunda y misteriosa con un fondo cálido y envolvente.</p>
-            <p class="price">S/ 149</p>
-            <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Asad%20Elixir%20de%20S/%20149" target="_blank" class="btn">Pedir por WhatsApp</a>
+            <div class="card-content">
+                <p class="notes">Dulce · Amaderado · Especiado</p>
+                <h3>Asad Elixir</h3>
+                <p class="desc">Elegancia profunda y misteriosa con un fondo cálido y envolvente.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 149</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Asad%20Elixir%20de%20S/%20149" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
         </article>
 
         <!-- PRODUCTOS AGOTADOS -->
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/25pdmRqg/odyssey-aqua.jpg" alt="Odyssey Aqua" loading="lazy">
-            <h3 class="agotado-title">Odyssey Aqua (AGOTADO)</h3>
-            <p class="notes">Acuático · Cítrico · Fresco</p>
-            <p class="desc">Una brisa marina refrescante y dinámica.</p>
-            <p class="price">S/ 145</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Acuático · Cítrico · Fresco</p>
+                <h3>Odyssey Aqua</h3>
+                <p class="desc">Una brisa marina refrescante y dinámica.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 145</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/W3z1HtNs/asad-normal.jpg" alt="Lattafa Asad" loading="lazy">
-            <h3 class="agotado-title">Lattafa Asad (AGOTADO)</h3>
-            <p class="notes">Especiado · Amaderado · Ámbar</p>
-            <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
-            <p class="price">S/ 125</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Especiado · Amaderado · Ámbar</p>
+                <h3>Lattafa Asad</h3>
+                <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 125</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/0yvmHGhF/club-de-nuit.jpg" alt="Club de Nuit Iconic" loading="lazy">
-            <h3 class="agotado-title">Club de Nuit Iconic (AGOTADO)</h3>
-            <p class="notes">Cítrico · Aromático · Amaderado</p>
-            <p class="desc">Frescura magnética y azul con una estela elegante y duradera.</p>
-            <p class="price">S/ 165</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Cítrico · Aromático · Amaderado</p>
+                <h3>Club de Nuit Iconic</h3>
+                <p class="desc">Frescura magnética y azul con una estela elegante y duradera.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 165</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="women">
             <img src="https://i.postimg.cc/25cZ6syc/yum-yum.jpg" alt="Armaf Yum Yum" loading="lazy">
-            <h3 class="agotado-title">Armaf Yum Yum (AGOTADO)</h3>
-            <p class="notes">Gourmand · Dulce · Afrutado</p>
-            <p class="desc">Una explosión de dulzura con notas jugosas y divertidas.</p>
-            <p class="price">S/ 155</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Gourmand · Dulce · Afrutado</p>
+                <h3>Armaf Yum Yum</h3>
+                <p class="desc">Una explosión de dulzura con notas jugosas y divertidas.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 155</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="women">
             <img src="https://i.postimg.cc/90XtSd4T/yara-lattafa.jpg" alt="Lattafa Yara" loading="lazy">
-            <h3 class="agotado-title">Lattafa Yara (AGOTADO)</h3>
-            <p class="notes">Dulce · Tropical · Atalcado</p>
-            <p class="desc">Un postre hecho fragancia, suave y femenina.</p>
-            <p class="price">S/ 125</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Dulce · Tropical · Atalcado</p>
+                <h3>Lattafa Yara</h3>
+                <p class="desc">Un postre hecho fragancia, suave y femenina.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 125</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/CLCmXm3p/Fotografia-publicitaria-de-lujo-para-2K-20261015145154.jpg" alt="Nautica Voyage" loading="lazy">
-            <h3 class="agotado-title">Nautica Voyage (AGOTADO)</h3>
-            <p class="notes">Verde · Afrutados · Fresco</p>
-            <p class="desc">La esencia pura de la brisa marina y notas verdes, ideal para el día a día.</p>
-            <p class="price">S/ 100</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Verde · Afrutados · Fresco</p>
+                <h3>Nautica Voyage</h3>
+                <p class="desc">La esencia pura de la brisa marina y notas verdes, ideal para el día a día.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 100</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/J42c6BRV/liquid-brun.jpg" alt="Liquid Brun" loading="lazy">
-            <h3 class="agotado-title">Liquid Brun (AGOTADO)</h3>
-            <p class="notes">Vainilla · Ámbar · Amaderado</p>
-            <p class="desc">Pura elegancia cálida con vainilla premium y ámbar.</p>
-            <p class="price">S/ 160</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Vainilla · Ámbar · Amaderado</p>
+                <h3>Liquid Brun</h3>
+                <p class="desc">Pura elegancia cálida con vainilla premium y ámbar.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 160</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
         
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/TwBfN9Nw/nitro-intense-copia-jpg-2K-20261011222813.jpg" alt="Nitro Intense" loading="lazy">
-            <h3 class="agotado-title">Nitro Intense (AGOTADO)</h3>
-            <p class="notes">Afrutado · Dulce · Amaderado</p>
-            <p class="desc">Una explosión frutal y nocturna que domina cualquier escenario.</p>
-            <p class="price">S/ 150</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Afrutado · Dulce · Amaderado</p>
+                <h3>Nitro Intense</h3>
+                <p class="desc">Una explosión frutal y nocturna que domina cualquier escenario.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 150</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/wMJyw32g/club-de-nuit-urban.jpg" alt="Urban Man Elixir" loading="lazy">
-            <h3 class="agotado-title">Urban Man Elixir (AGOTADO)</h3>
-            <p class="notes">Especiado · Amaderado · Cítrico</p>
-            <p class="desc">Frescura salvaje y masculinidad elegante.</p>
-            <p class="price">S/ 160</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Especiado · Amaderado · Cítrico</p>
+                <h3>Urban Man Elixir</h3>
+                <p class="desc">Frescura salvaje y masculinidad elegante.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 160</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
         
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/pTcthZMg/sceptre-copia-jpg-2K-20261011230330.jpg" alt="Sceptre Malachite" loading="lazy">
-            <h3 class="agotado-title">Sceptre Malachite (AGOTADO)</h3>
-            <p class="notes">Maracumango · Amaderado · Aromático</p>
-            <p class="desc">Un aura misteriosa y sofisticada inspirada en la realeza.</p>
-            <p class="price">S/ 135</p>
-            <a class="btn btn-agotado">AGOTADO</a>
+            <div class="card-content">
+                <p class="notes">Maracumango · Amaderado · Aromático</p>
+                <h3>Sceptre Malachite</h3>
+                <p class="desc">Un aura misteriosa y sofisticada inspirada en la realeza.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 135</span>
+                    <button class="btn btn-agotado" aria-disabled="true">Agotado</button>
+                </div>
+            </div>
         </article>
     </main>
 
     <script>
+        /* =========================================================================
+            MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
+            ========================================================= */
+        const wrapper = document.getElementById('marqueeWrapper');
+        const track1 = document.getElementById('track1');
+        
+        const existingTrack2 = document.getElementById('track2');
+        if (existingTrack2) existingTrack2.remove();
+
+        const track2 = track1.cloneNode(true);
+        track2.id = 'track2';
+        wrapper.appendChild(track2);
+
+        const items = document.querySelectorAll('.hero-perfume');
+        let pos = 0;
+        const speed = window.innerWidth <= 900 ? 0.5 : 1.1; 
+        
+        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let itemData = [];
+        let trackWidth = 0;
+
+        function measureItems() {
+            trackWidth = track1.offsetWidth;
+            if (trackWidth === 0) return;
+            
+            itemData = Array.from(items).map(item => {
+                const rect = item.getBoundingClientRect();
+                return {
+                    element: item,
+                    width: rect.width || item.offsetWidth
+                };
+            });
+        }
+        
+        window.addEventListener('load', () => {
+            setTimeout(measureItems, 50);
+        });
+        window.addEventListener('resize', measureItems);
+
+        function renderLoop() {
+            if (isReducedMotion) return;
+            
+            if (trackWidth === 0) {
+                measureItems();
+                requestAnimationFrame(renderLoop);
+                return;
+            }
+            
+            pos += speed;
+            if (pos >= trackWidth) {
+                pos -= trackWidth;
+            }
+            
+            wrapper.style.transform = `translate3d(-${pos}px, 0, 0)`;
+            
+            const centerX = window.innerWidth / 2;
+            const screenWidthHalf = window.innerWidth / 2;
+            
+            const allTracks = wrapper.children;
+            for (let t = 0; t < allTracks.length; t++) {
+                const trackItems = allTracks[t].children;
+                const trackOffset = t * trackWidth;
+                
+                for (let i = 0; i < trackItems.length; i++) {
+                    const item = trackItems[i];
+                    const itemLocalLeft = (i * (trackWidth / trackItems.length));
+                    const itemCenterOnScreen = trackOffset + itemLocalLeft + (item.offsetWidth / 2) - pos;
+                    
+                    const distFromCenter = itemCenterOnScreen - centerX;
+                    const normalizedDist = distFromCenter / screenWidthHalf; 
+                    const clampedDist = Math.max(-1.5, Math.min(1.5, normalizedDist));
+                    
+                    const scale = 1.15 - (Math.abs(clampedDist) * 0.35); 
+                    const rotateY = clampedDist * 40; 
+                    const z = Math.abs(clampedDist) * -150; 
+                    
+                    item.style.transform = `perspective(1400px) translate3d(0, 0, ${z}px) rotateY(${rotateY}deg) scale(${scale})`;
+                }
+            }
+            
+            requestAnimationFrame(renderLoop);
+        }
+        
+        if (!isReducedMotion) {
+            setTimeout(() => {
+                measureItems();
+                requestAnimationFrame(renderLoop);
+            }, 150);
+        }
+
+        /* =========================================================================
+            SCROLL REVEAL Y LÓGICA DE FILTRADO PARA EL CATÁLOGO
+            ========================================================= */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -50px 0px',
+            threshold: 0.1
+        };
+
+        const cards = document.querySelectorAll('.card');
+        
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+            let delayCounter = 0;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, delayCounter * 100); 
+                    delayCounter++;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => cardObserver.observe(card));
+
         function filterCategory(event, category) {
-            const cards = document.querySelectorAll('.card');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
             event.currentTarget.classList.add('active');
+            event.currentTarget.setAttribute('aria-selected', 'true');
 
             cards.forEach(card => {
-                // Aquí el display debe ser 'flex', NO 'block', para mantener la altura uniforme
+                card.classList.remove('is-visible');
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'flex';
+                    cardObserver.observe(card);
                 } else {
                     card.style.display = 'none';
+                    cardObserver.unobserve(card);
                 }
             });
         }
