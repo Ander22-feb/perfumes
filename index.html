@@ -402,7 +402,7 @@
             </div>
         </article>
 
-      <!-- LÍNEA HAWAS -->
+        <!-- LÍNEA HAWAS -->
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/0ynFSP2C/hawas-form-him.jpg" alt="Hawas for Him Rasasi" loading="lazy">
             <div class="card-content">
@@ -415,8 +415,6 @@
                 </div>
             </div>
         </article>
-
-        
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/pLQbYxth/hawas-kobra-copia-jpg-2K-20261011224514.jpg" alt="Hawas Kobra" loading="lazy">
@@ -458,7 +456,6 @@
         </article>
 
         <!-- LÍNEA ASAD -->
-
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/W3z1HtNs/asad-normal.jpg" alt="Lattafa Asad" loading="lazy">
             <div class="card-content">
@@ -579,6 +576,19 @@
             </div>
         </article>
 
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/3xp3PRXm/dukhan.jpg" alt="Khamrah Dukhan Lattafa" loading="lazy">
+            <div class="card-content">
+                <p class="notes">Ámbar · Cálido Especiado · Tabaco</p>
+                <h3>Khamrah Dukhan Lattafa</h3>
+                <p class="desc">Una interpretación intensa, ahumada y especiada de Khamrah con notas cálidas de tabaco, ámbar y dulzor envolvente.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 135</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Khamrah%20Dukhan%20Lattafa%20de%20S/%20135" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
+        </article>
+
         <!-- LÍNEA AFNAN 9AM / 9PM -->
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/X7DKZYRY/9pm-diva.jpg" alt="9am Dive Afnan" loading="lazy">
@@ -633,7 +643,6 @@
             </div>
         </article>
 
-
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/pTcthZMg/sceptre-copia-jpg-2K-20261011230330.jpg" alt="Sceptre Malachite" loading="lazy">
             <div class="card-content">
@@ -646,8 +655,6 @@
                 </div>
             </div>
         </article>
-    </main>
-
 
         <article class="card" data-category="men">
             <img src="https://i.postimg.cc/kG7cqX8L/sublime-copia.jpg" alt="Bade'e Al Oud Sublime" loading="lazy">
@@ -671,6 +678,19 @@
                 <div class="action-stack">
                     <span class="price">S/ 199</span>
                     <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Amber%20Oud%20Gold%20Edition%20de%20S/%20199" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="card" data-category="men">
+            <img src="https://i.postimg.cc/VkTbFdYC/king.jpg" alt="Bharara King" loading="lazy">
+            <div class="card-content">
+                <p class="notes">Cítrico · Afrutado · Dulce</p>
+                <h3>Bharara King</h3>
+                <p class="desc">Una fragancia vibrante y magnética que combina frescura cítrica y notas frutales con un fondo cálido de vainilla y ámbar.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 210</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Bharara%20King%20de%20S/%20210" target="_blank" class="btn">Comprar</a>
                 </div>
             </div>
         </article>
@@ -804,8 +824,6 @@
         <!-- ============================================== -->
         <!-- SECCIÓN AGOTADOS (AL FINAL DE TODO)            -->
         <!-- ============================================== -->
-        
-    
 
         <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/wMJyw32g/club-de-nuit-urban.jpg" alt="Urban Man Elixir" loading="lazy">
@@ -816,8 +834,11 @@
                 <div class="action-stack">
                     <span class="price">S/ 160</span>
                     <a class="btn btn-agotado">AGOTADO</a>
-                    
-                </div><article class="card card-agotado" data-category="men">
+                </div>
+            </div>
+        </article>
+
+        <article class="card card-agotado" data-category="men">
             <img src="https://i.postimg.cc/YCRZFMq2/hawas-fire.jpg" alt="Hawas Fire Rasasi" loading="lazy">
             <div class="card-content">
                 <p class="notes">Ámbar · Aromático · Mineral</p>
@@ -827,9 +848,6 @@
                     <span class="price">S/ 170</span>
                     <a class="btn btn-agotado">AGOTADO</a>
                 </div>
-            </div>
-        </article>
-
             </div>
         </article>
         
@@ -936,8 +954,9 @@
                 </div>
             </div>
         </article>
-        
-        
+
+    </main>
+
     <script>
         /* =========================================================================
             MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
@@ -1035,8 +1054,8 @@
             ========================================================= */
         const observerOptions = {
             root: null,
-            rootMargin: '0px 0px -50px 0px',
-            threshold: 0.1
+            rootMargin: '0px 0px -20px 0px',
+            threshold: 0.05
         };
 
         const cards = document.querySelectorAll('.card');
@@ -1047,7 +1066,7 @@
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('is-visible');
-                    }, delayCounter * 100); 
+                    }, delayCounter * 80); 
                     delayCounter++;
                     observer.unobserve(entry.target);
                 }
