@@ -270,20 +270,63 @@
             margin-bottom: 32px; flex-grow: 1;
         }
 
-        .action-stack { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .price { font-size: 17px; font-weight: 600; color: var(--color-gold-light); }
+        .action-stack { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto; 
+        }
+        
+        .price { font-size: 17px; font-weight: 600; color: var(--color-gold-light); white-space: nowrap; }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-left: auto;
+        }
 
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
             background-color: var(--color-gold-accent); color: var(--color-emerald-deep);
-            text-decoration: none; padding: 10px 20px; border-radius: var(--radius-buttons);
-            font-weight: 600; font-size: 15px; letter-spacing: -0.01em;
+            text-decoration: none; padding: 10px 18px; border-radius: var(--radius-buttons);
+            font-weight: 600; font-size: 14px; letter-spacing: -0.01em;
             transition: opacity 0.2s, transform 0.2s; border: none;
-            cursor: pointer;
+            cursor: pointer; white-space: nowrap;
         }
 
         .btn:hover { opacity: 0.9; }
         .btn:active { transform: scale(0.95); }
+
+        .btn-review {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            background-color: transparent;
+            color: var(--color-gold-light);
+            border: 1px solid rgba(197, 160, 89, 0.55);
+            text-decoration: none;
+            padding: 9px 14px;
+            border-radius: var(--radius-buttons);
+            font-family: var(--font-sf-pro);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: -0.01em;
+            transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-review:hover {
+            background-color: rgba(197, 160, 89, 0.16);
+            border-color: var(--color-gold-accent);
+        }
+
+        .btn-review:active { transform: scale(0.95); }
 
         .card-agotado img { opacity: 0.35; filter: grayscale(90%); }
         .card-agotado:hover img { transform: none; filter: grayscale(90%); } 
@@ -294,7 +337,127 @@
         }
 
         /* =========================================================
-            4. KEYFRAMES Y RESPONSIVE
+            4. VENTANA FLOTANTE DE RESEÑA (CATBOX .MP4 EN LA MISMA PÁGINA)
+            ========================================================= */
+        .review-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 26, 19, 0.86);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .review-modal.open {
+            display: flex;
+        }
+
+        .review-modal-box {
+            background-color: var(--color-emerald-card);
+            border: 1px solid var(--color-gold-accent);
+            border-radius: 24px;
+            padding: 18px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .review-modal-box.is-landscape {
+            max-width: 680px;
+        }
+
+        .review-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-modal-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-gold-light);
+        }
+
+        .review-close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            color: var(--color-paper-white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .review-close-btn:hover {
+            background: rgba(197, 160, 89, 0.25);
+        }
+
+        .review-video-frame {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            max-height: 70vh;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review-modal-box.is-landscape .review-video-frame {
+            aspect-ratio: 16 / 9;
+        }
+
+        .review-video-frame iframe,
+        .review-video-frame video {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .review-error-msg {
+            padding: 24px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .review-modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-modal-footer .btn {
+            margin-left: auto;
+        }
+
+        .review-external-link {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+            5. KEYFRAMES Y RESPONSIVE
             ========================================================= */
         @keyframes galleryEntrance {
             from { opacity: 0; transform: translate(-50%, -30%) scale(0.9); }
@@ -381,13 +544,14 @@
         <button class="filter-btn" role="tab" aria-selected="false" onclick="filterCategory(event, 'women')">Mujeres</button>
     </div>
 
-    <!-- CATÁLOGO COMPLETO ORDENADO -->
+    <!-- CATÁLOGO COMPLETO (PEGA TU LINK DE CATBOX EN data-review="https://files.catbox.moe/xxxxxx.mp4") -->
     <main class="grid" id="catalogo">
         
         <!-- ============================================== -->
         <!-- 1. PRINCIPAL FIJO                              -->
         <!-- ============================================== -->
-        <article class="card" data-category="men">
+        <!-- 👇 PEGA AQUÍ TU LINK DE CATBOX PARA ERBA PURA -->
+        <article class="card" data-category="women" data-review="">
             <img src="https://i.postimg.cc/MT02kbDn/erba-pura.jpg" alt="Erba Pura Xerjoff" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Afrutado · Dulce</p>
@@ -403,7 +567,7 @@
         <!-- ============================================== -->
         <!-- 2. PERFUMES ÚNICOS (SIN OTRAS PRESENTACIONES)  -->
         <!-- ============================================== -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/xwpi1h.mp4">
             <img src="https://i.postimg.cc/V6PCfy0H/atlantis.jpg" alt="Atlantis Extrait French Avenue" loading="lazy">
             <div class="card-content">
                 <p class="notes">Ozónico · Acuático · Coco</p>
@@ -416,7 +580,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/lex92n.mp4">
             <img src="https://i.postimg.cc/W3mJt9M1/nitro-red.jpg" alt="Nitro Red Dumont" loading="lazy">
             <div class="card-content">
                 <p class="notes">Amaderado · Ozónico · Afrutado</p>
@@ -429,7 +593,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/3ebalx.mp4">
             <img src="https://i.postimg.cc/QtgWV6cw/dunescape.jpg" alt="Dunescape Armaf" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Fresco Especiado · Aromático</p>
@@ -442,7 +606,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/kcyug6.mp4">
             <img src="https://i.postimg.cc/VkTbFdYC/king.jpg" alt="Bharara King" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Afrutado · Dulce</p>
@@ -455,7 +619,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/l6u7g7.mp4">
             <img src="https://i.postimg.cc/tJXn6h5W/rome-extradosde.jpg" alt="Rome Extradose Bharara" loading="lazy">
             <div class="card-content">
                 <p class="notes">Lavanda · Amaderado · Cálido Especiado</p>
@@ -468,7 +632,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/o53j8v.mp4">
             <img src="https://i.postimg.cc/K8GkDph9/Perfume-bottle-and-packaging-box-2K-20261011200924.jpg" alt="Haramain Amber Oud Gold Edition" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Afrutado · Ozónico</p>
@@ -481,7 +645,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/18pe8u.mp4">
             <img src="https://i.postimg.cc/X7DKZYRY/9pm-diva.jpg" alt="9am Dive Afnan" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Fresco · Amaderado</p>
@@ -494,7 +658,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/jgt00c.mp4">
             <img src="https://i.postimg.cc/kG7cqX8L/sublime-copia.jpg" alt="Bade'e Al Oud Sublime" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Tropical · Rosas</p>
@@ -507,7 +671,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="">
             <img src="https://i.postimg.cc/J47HVsYw/qaed.jpg" alt="Qaed Al Fursan Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Piña · Dulce</p>
@@ -520,7 +684,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/gtrf14.mp4">
             <img src="https://i.postimg.cc/FsPd9hwJ/salvo.jpg" alt="Salvo Maison Alhambra" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Fresco · Especiado</p>
@@ -538,7 +702,7 @@
         <!-- ============================================== -->
 
         <!-- LÍNEA HAWAS (RASASI) -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/ljd8b7.mp4">
             <img src="https://i.postimg.cc/0ynFSP2C/hawas-form-him.jpg" alt="Hawas for Him Rasasi" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Cítrico · Acuático</p>
@@ -551,7 +715,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/zuzh2z.mp4">
             <img src="https://i.postimg.cc/9FYHyC28/hawas-ice.jpg" alt="Hawas Ice" loading="lazy">
             <div class="card-content">
                 <p class="notes">Acuático · Fresco · Afrutado</p>
@@ -564,7 +728,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/bxmae2.mp4">
             <img src="https://i.postimg.cc/Vv02SPRs/hawas-tropical-copia-jpg-2K-20261011224302.jpg" alt="Hawas Tropical" loading="lazy">
             <div class="card-content">
                 <p class="notes">Tropical · Frutal · Fresco</p>
@@ -578,7 +742,7 @@
         </article>
 
         <!-- LÍNEA ODYSSEY (ARMAF) -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/wwwlvx.mp4">
             <img src="https://i.postimg.cc/JzXJp6TN/odyssey-sky.jpg" alt="Odyssey Mandarin Sky" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Dulce · Ambarado</p>
@@ -591,7 +755,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/22g69u.mp4">
             <img src="https://i.postimg.cc/J01HXbqn/odyssey-white.jpg" alt="Odyssey Homme White Edition" loading="lazy">
             <div class="card-content">
                 <p class="notes">Amaderado · Aromático · Avainillado</p>
@@ -605,7 +769,7 @@
         </article>
 
         <!-- LÍNEA CLUB DE NUIT (ARMAF) -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/z0e96c.mp4">
             <img src="https://i.postimg.cc/9QGJ31sj/Whats-App-Image-2026-10-15-at-2-26-58-2K-20261015145521.jpg" alt="Club de Nuit Intense Man" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Ahumado · Cuero</p>
@@ -618,7 +782,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/gdvv7u.mp4">
             <img src="https://i.postimg.cc/0yvmHGhF/club-de-nuit.jpg" alt="Club de Nuit Iconic" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Aromático · Amaderado</p>
@@ -632,7 +796,7 @@
         </article>
 
         <!-- LÍNEA ASAD (LATTAFA) -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/458hal.mp4">
             <img src="https://i.postimg.cc/W3z1HtNs/asad-normal.jpg" alt="Lattafa Asad" loading="lazy">
             <div class="card-content">
                 <p class="notes">Especiado · Amaderado · Ámbar</p>
@@ -640,12 +804,12 @@
                 <p class="desc">Un aroma intenso y masculino con un toque especiado irresistible.</p>
                 <div class="action-stack">
                     <span class="price">S/ 125</span>
-                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Asad%20de%20S/%20125" target="_blank" class="btn">Pedir por WhatsApp</a>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Lattafa%20Asad%20de%20S/%20125" target="_blank" class="btn">Comprar</a>
                 </div>
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/iqma7r.mp4">
             <img src="https://i.postimg.cc/52Wj2x3j/asad-marron.jpg" alt="Asad Bourbon" loading="lazy">
             <div class="card-content">
                 <p class="notes">Vainilla · Especiado · Amaderado</p>
@@ -658,7 +822,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/85q4rp.mp4">
             <img src="https://i.postimg.cc/5jd9y3wJ/asad-elixir.jpg" alt="Asad Elixir" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Amaderado · Especiado</p>
@@ -672,7 +836,7 @@
         </article>
 
         <!-- LÍNEA KHAMRAH (LATTAFA) -->
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/i54jgx.mp4">
             <img src="https://i.postimg.cc/HWSQn7cW/Lattafa-Khamrah.jpg" alt="Lattafa Khamrah" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Especiado · Licoroso</p>
@@ -685,7 +849,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="men">
+        <article class="card" data-category="men" data-review="https://files.catbox.moe/rvei7v.mp4">
             <img src="https://i.postimg.cc/1zPHw19H/Khamrah-Qahwa.jpg" alt="Khamrah Qahwa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Café · Dulce · Especiado</p>
@@ -704,7 +868,7 @@
         <!-- ============================================== -->
 
         <!-- PRESENTACIÓN ÚNICA (MUJERES) -->
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/hidj9k.mp4">
             <img src="https://i.postimg.cc/Nj96Rwtm/qimmha.jpg" alt="Qimmah for Women Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Floral Blanco · Avainillado · Almendrado</p>
@@ -717,7 +881,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/7o3ujp.mp4">
             <img src="https://i.postimg.cc/x8fKkc6X/eclaire.jpg" alt="Eclaire Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Avainillado · Caramelo</p>
@@ -730,7 +894,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/19zb3p.mp4">
             <img src="https://i.postimg.cc/25cZ6syc/yum-yum.jpg" alt="Armaf Yum Yum" loading="lazy">
             <div class="card-content">
                 <p class="notes">Gourmand · Dulce · Afrutado</p>
@@ -744,7 +908,7 @@
         </article>
 
         <!-- LÍNEA YARA (LATTAFA) -->
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/ac1457.mp4">
             <img src="https://i.postimg.cc/90XtSd4T/yara-lattafa.jpg" alt="Lattafa Yara" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Tropical · Atalcado</p>
@@ -757,7 +921,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/9807kf.mp4">
             <img src="https://i.postimg.cc/9fV4JWww/Yara-yara.jpg" alt="Yara Tous" loading="lazy">
             <div class="card-content">
                 <p class="notes">Tropical · Afrutado · Dulce</p>
@@ -770,7 +934,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/cn5h20.mp4">
             <img src="https://i.postimg.cc/jSpzXkqn/yara-elixir.jpg" alt="Yara Elixir Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Avainillado · Caramelo · Dulce</p>
@@ -784,7 +948,7 @@
         </article>
 
         <!-- LÍNEA HAWAS MUJER (RASASI) -->
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/zk6zq0.mp4">
             <img src="https://i.postimg.cc/jjj9QmLG/hawas-pink.jpg" alt="Hawas Pink Rasasi" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Floral Blanco · Avainillado</p>
@@ -797,7 +961,7 @@
             </div>
         </article>
 
-        <article class="card" data-category="women">
+        <article class="card" data-category="women" data-review="https://files.catbox.moe/82tk4n.mp4">
             <img src="https://i.postimg.cc/4xDz5F4V/hawas-diva.jpg" alt="Hawas Diva Rasasi" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Avainillado · Dulce</p>
@@ -815,7 +979,7 @@
         <!-- SECCIÓN AGOTADOS (AL FINAL DE TODO)            -->
         <!-- ============================================== -->
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/3xp3PRXm/dukhan.jpg" alt="Khamrah Dukhan Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Ámbar · Cálido Especiado · Tabaco</p>
@@ -828,7 +992,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/pLQbYxth/hawas-kobra-copia-jpg-2K-20261011224514.jpg" alt="Hawas Kobra" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Fresco · Especiado</p>
@@ -841,7 +1005,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/D0zL57Dh/odyssey-mandarin-sky.jpg" alt="Odyssey Mandarin Sky Elixir" loading="lazy">
             <div class="card-content">
                 <p class="notes">Cítrico · Dulce · Ambarado</p>
@@ -854,7 +1018,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/C5dSm24Y/9-pm-rojo-jpg-2K-20261011215433.jpg" alt="9 PM Rebel" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Amaderado · Dulce</p>
@@ -867,7 +1031,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/pTcthZMg/sceptre-copia-jpg-2K-20261011230330.jpg" alt="Sceptre Malachite" loading="lazy">
             <div class="card-content">
                 <p class="notes">Maracumango · Amaderado · Aromático</p>
@@ -880,7 +1044,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="women">
+        <article class="card card-agotado" data-category="women" data-review="">
             <img src="https://i.postimg.cc/XqqrSFHv/nebras.jpg" alt="Nebras Lattafa" loading="lazy">
             <div class="card-content">
                 <p class="notes">Avainillado · Dulce · Cacao</p>
@@ -893,7 +1057,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/wMJyw32g/club-de-nuit-urban.jpg" alt="Urban Man Elixir" loading="lazy">
             <div class="card-content">
                 <p class="notes">Especiado · Amaderado · Cítrico</p>
@@ -906,7 +1070,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/YCRZFMq2/hawas-fire.jpg" alt="Hawas Fire Rasasi" loading="lazy">
             <div class="card-content">
                 <p class="notes">Ámbar · Aromático · Mineral</p>
@@ -919,7 +1083,7 @@
             </div>
         </article>
         
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/15fDq5wj/Rome-Pour-Homme.jpg" alt="Rome Pour Homme" loading="lazy">
             <div class="card-content">
                 <p class="notes">Aromático · Amaderado · Fresco</p>
@@ -932,7 +1096,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/CK2sdjtD/sfsefsef-jpeg-553dd2c3-2K.jpg" alt="Rome Pour Homme Intense" loading="lazy">
             <div class="card-content">
                 <p class="notes">Amaderado · Ámbar · Avainillado</p>
@@ -945,7 +1109,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/wMt37MZ2/9pm-normal.jpg" alt="Afnan 9 PM" loading="lazy">
             <div class="card-content">
                 <p class="notes">Dulce · Avainillado · Especiado</p>
@@ -958,7 +1122,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/FRfT6m4j/Whats-App-Image-2026-10-15-at-2-27-40-2K-20261015145336.jpg" alt="Supremacy Collector's Edition" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Cítrico · Ámbar</p>
@@ -971,7 +1135,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/25pdmRqg/odyssey-aqua.jpg" alt="Odyssey Aqua" loading="lazy">
             <div class="card-content">
                 <p class="notes">Acuático · Cítrico · Fresco</p>
@@ -984,7 +1148,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/CLCmXm3p/Fotografia-publicitaria-de-lujo-para-2K-20261015145154.jpg" alt="Nautica Voyage" loading="lazy">
             <div class="card-content">
                 <p class="notes">Verde · Afrutados · Fresco</p>
@@ -997,7 +1161,7 @@
             </div>
         </article>
 
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/J42c6BRV/liquid-brun.jpg" alt="Liquid Brun" loading="lazy">
             <div class="card-content">
                 <p class="notes">Vainilla · Ámbar · Amaderado</p>
@@ -1010,7 +1174,7 @@
             </div>
         </article>
         
-        <article class="card card-agotado" data-category="men">
+        <article class="card card-agotado" data-category="men" data-review="">
             <img src="https://i.postimg.cc/TwBfN9Nw/nitro-intense-copia-jpg-2K-20261011222813.jpg" alt="Nitro Intense" loading="lazy">
             <div class="card-content">
                 <p class="notes">Afrutado · Dulce · Amaderado</p>
@@ -1025,10 +1189,25 @@
 
     </main>
 
+    <!-- VENTANA FLOTANTE DE VIDEO (MODAL) -->
+    <div class="review-modal" id="reviewModal" onclick="closeReviewModal()">
+        <div class="review-modal-box" id="reviewModalBox" onclick="event.stopPropagation()">
+            <div class="review-modal-header">
+                <span class="review-modal-title" id="reviewModalTitle">Reseña</span>
+                <button type="button" class="review-close-btn" onclick="closeReviewModal()" aria-label="Cerrar video">✕</button>
+            </div>
+            <div class="review-video-frame" id="reviewVideoFrame"></div>
+            <div class="review-modal-footer">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="review-external-link" id="reviewExternalLink">Abrir video original ↗</a>
+                <a href="#" target="_blank" class="btn" id="reviewModalBuyBtn">Comprar</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         /* =========================================================================
-            MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
-            ========================================================= */
+            1. MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
+            ========================================================================= */
         const wrapper = document.getElementById('marqueeWrapper');
         const track1 = document.getElementById('track1');
         
@@ -1118,8 +1297,8 @@
         }
 
         /* =========================================================================
-            SCROLL REVEAL Y LÓGICA DE FILTRADO PARA EL CATÁLOGO
-            ========================================================= */
+            2. SCROLL REVEAL Y LÓGICA DE FILTRADO PARA EL CATÁLOGO
+            ========================================================================= */
         const observerOptions = {
             root: null,
             rootMargin: '0px 0px -20px 0px',
@@ -1164,6 +1343,157 @@
                 }
             });
         }
+
+        /* =========================================================================
+            3. VENTANA FLOTANTE (Videos .MP4 de Catbox / YouTube) + RESPALDO EN TIKTOK
+            ========================================================================= */
+        function parseMediaSource(url) {
+            // 1. Enlace directo de Catbox o archivo .mp4 / .webm / .mov / .m4v
+            if (/\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url)) {
+                return {
+                    type: 'video',
+                    src: url,
+                    isLandscape: false
+                };
+            }
+
+            // 2. YouTube Shorts
+            const ytShortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/i);
+            if (ytShortsMatch) {
+                return {
+                    type: 'iframe',
+                    src: `https://www.youtube.com/embed/${ytShortsMatch[1]}?autoplay=1&rel=0`,
+                    isLandscape: false
+                };
+            }
+
+            // 3. YouTube horizontal
+            const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
+            if (ytMatch) {
+                return {
+                    type: 'iframe',
+                    src: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`,
+                    isLandscape: true
+                };
+            }
+
+            return null;
+        }
+
+        function openReviewModal(card, media, rawUrl) {
+            const title = card.querySelector('h3').textContent.replace(/\(AGOTADO\)/gi, '').trim();
+            const buyBtn = card.querySelector('.btn');
+            const buyHref = buyBtn ? buyBtn.getAttribute('href') : null;
+            const isOutOfStock = card.classList.contains('card-agotado') || !buyHref;
+
+            const modal = document.getElementById('reviewModal');
+            const modalBox = document.getElementById('reviewModalBox');
+            const frameContainer = document.getElementById('reviewVideoFrame');
+            const externalLink = document.getElementById('reviewExternalLink');
+            const modalBuyBtn = document.getElementById('reviewModalBuyBtn');
+
+            document.getElementById('reviewModalTitle').textContent = `Reseña · ${title}`;
+
+            if (isOutOfStock) {
+                modalBuyBtn.textContent = 'AGOTADO';
+                modalBuyBtn.removeAttribute('href');
+                modalBuyBtn.classList.add('btn-agotado');
+            } else {
+                modalBuyBtn.textContent = 'Comprar';
+                modalBuyBtn.href = buyHref;
+                modalBuyBtn.classList.remove('btn-agotado');
+            }
+
+            modalBox.classList.toggle('is-landscape', media.isLandscape);
+            frameContainer.innerHTML = '';
+
+            if (media.type === 'video') {
+                externalLink.style.display = 'none';
+                const videoEl = document.createElement('video');
+                videoEl.src = media.src;
+                videoEl.controls = true;
+                videoEl.autoplay = true;
+                videoEl.playsInline = true;
+                videoEl.preload = 'auto';
+                videoEl.onerror = () => {
+                    frameContainer.innerHTML = `<div class="review-error-msg">No se pudo cargar el video. Verifica que el enlace de Catbox termine en <strong>.mp4</strong> y sea público.</div>`;
+                };
+                frameContainer.appendChild(videoEl);
+                videoEl.play().catch(() => {});
+            } else {
+                externalLink.style.display = 'inline';
+                externalLink.href = rawUrl;
+                frameContainer.innerHTML = `<iframe src="${media.src}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+            }
+
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            const frameContainer = document.getElementById('reviewVideoFrame');
+            const activeVideo = frameContainer.querySelector('video');
+            if (activeVideo) {
+                activeVideo.pause();
+                activeVideo.removeAttribute('src');
+                activeVideo.load();
+            }
+            modal.classList.remove('open');
+            frameContainer.innerHTML = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeReviewModal();
+        });
+
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        cards.forEach(card => {
+            const titleEl = card.querySelector('h3');
+            const actionStack = card.querySelector('.action-stack');
+            const buyBtn = actionStack ? actionStack.querySelector('.btn') : null;
+            if (!titleEl || !actionStack || !buyBtn) return;
+
+            const perfumeName = titleEl.textContent.replace(/\(AGOTADO\)/gi, '').trim();
+            const customLink = (card.getAttribute('data-review') || '').trim();
+
+            // Si el perfume no tiene link en data-review="", no crea el botón de reseña
+            if (!customLink) return;
+
+            const reviewBtn = document.createElement('a');
+            reviewBtn.className = 'btn-review';
+            reviewBtn.setAttribute('aria-label', `Ver reseña de ${perfumeName}`);
+            reviewBtn.innerHTML = '▶ Reseña';
+
+            const parsedMedia = parseMediaSource(customLink);
+
+            if (parsedMedia) {
+                // Video .mp4 de Catbox o YouTube: abre flotando dentro de la misma página
+                reviewBtn.href = customLink;
+                reviewBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openReviewModal(card, parsedMedia, customLink);
+                });
+            } else if (isAndroid) {
+                const cleanPath = customLink.replace(/^https?:\/\//i, '');
+                reviewBtn.href = `intent://${cleanPath}#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=${encodeURIComponent(customLink)};end`;
+            } else if (isIOS) {
+                reviewBtn.href = customLink;
+            } else {
+                reviewBtn.href = customLink;
+                reviewBtn.target = '_blank';
+                reviewBtn.rel = 'noopener noreferrer';
+            }
+
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'btn-group';
+            actionStack.insertBefore(btnGroup, buyBtn);
+            btnGroup.appendChild(reviewBtn);
+            btnGroup.appendChild(buyBtn);
+        });
     </script>
 </body>
 </html>
