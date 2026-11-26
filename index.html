@@ -38,8 +38,8 @@
         }
 
         /* =========================================================
-            1. BLOQUE HERO (Cabecera Esmeralda Profunda)
-            ========================================================= */
+           1. BLOQUE HERO (Cabecera Esmeralda Profunda)
+           ========================================================= */
         header {
             background: linear-gradient(135deg, #061a13 0%, #09261c 100%);
             height: 100vh;
@@ -163,8 +163,8 @@
         }
 
         /* =========================================================
-            2. NAVEGACIÓN Y FILTROS STICKY
-            ========================================================= */
+           2. NAVEGACIÓN Y FILTROS STICKY
+           ========================================================= */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -206,8 +206,8 @@
         }
 
         /* =========================================================
-            3. GRID Y TARJETAS DE PRODUCTO
-            ========================================================= */
+           3. GRID Y TARJETAS DE PRODUCTO
+           ========================================================= */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -337,8 +337,8 @@
         }
 
         /* =========================================================
-            4. VENTANA FLOTANTE DE RESEÑA (CATBOX .MP4 EN LA MISMA PÁGINA)
-            ========================================================= */
+           4. VENTANA FLOTANTE DE RESEÑA (CATBOX .MP4 EN LA MISMA PÁGINA)
+           ========================================================= */
         .review-modal {
             position: fixed;
             inset: 0;
@@ -457,8 +457,8 @@
         }
 
         /* =========================================================
-            5. KEYFRAMES Y RESPONSIVE
-            ========================================================= */
+           5. KEYFRAMES Y RESPONSIVE
+           ========================================================= */
         @keyframes galleryEntrance {
             from { opacity: 0; transform: translate(-50%, -30%) scale(0.9); }
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -544,7 +544,7 @@
         <button class="filter-btn" role="tab" aria-selected="false" onclick="filterCategory(event, 'women')">Mujeres</button>
     </div>
 
-    <!-- CATÁLOGO COMPLETO (PEGA TU LINK DE CATBOX EN data-review="https://files.catbox.moe/xxxxxx.mp4") -->
+    <!-- CATÁLOGO COMPLETO (PEGA TU LINK DE VIDEO EN data-review="https://...mp4") -->
     <main class="grid" id="catalogo">
         
         <!-- ============================================== -->
@@ -692,6 +692,19 @@
                 <div class="action-stack">
                     <span class="price">S/ 130</span>
                     <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20Badee%20Al%20Oud%20Sublime%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="card" data-category="men" data-review="">
+            <img src="https://i.postimg.cc/k4tVf9sR/the-king.jpg" alt="The Kingdom For Men Lattafa" loading="lazy">
+            <div class="card-content">
+                <p class="notes">Avainillado · Aromático · Dulce</p>
+                <h3>The Kingdom For Men Lattafa</h3>
+                <p class="desc">Una fragancia opulenta y magnética que combina vainilla cálida, lavanda aromática y un toque seductor de tabaco y ámbar.</p>
+                <div class="action-stack">
+                    <span class="price">S/ 130</span>
+                    <a href="https://wa.me/51991256761?text=Hola,%20me%20interesa%20el%20perfume%20The%20Kingdom%20For%20Men%20Lattafa%20de%20S/%20130" target="_blank" class="btn">Comprar</a>
                 </div>
             </div>
         </article>
@@ -1284,8 +1297,8 @@
 
     <script>
         /* =========================================================================
-            1. MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
-            ========================================================================= */
+           1. MOTOR DE RENDERIZADO 3D (Anti-bug, Suave y Elegante Estilo Apple)
+           ========================================================================= */
         const wrapper = document.getElementById('marqueeWrapper');
         const track1 = document.getElementById('track1');
         
@@ -1375,8 +1388,8 @@
         }
 
         /* =========================================================================
-            2. SCROLL REVEAL Y LÓGICA DE FILTRADO PARA EL CATÁLOGO
-            ========================================================================= */
+           2. SCROLL REVEAL Y LÓGICA DE FILTRADO PARA EL CATÁLOGO
+           ========================================================================= */
         const observerOptions = {
             root: null,
             rootMargin: '0px 0px -20px 0px',
@@ -1423,10 +1436,10 @@
         }
 
         /* =========================================================================
-            3. VENTANA FLOTANTE (Videos .MP4 de Catbox / YouTube) + RESPALDO EN TIKTOK
-            ========================================================================= */
+           3. VENTANA FLOTANTE (Videos .MP4 / YouTube) + RESPALDO EN TIKTOK
+           ========================================================================= */
         function parseMediaSource(url) {
-            // 1. Enlace directo de Catbox o archivo .mp4 / .webm / .mov / .m4v
+            // 1. Enlace directo de archivo .mp4 / .webm / .mov / .m4v
             if (/\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url)) {
                 return {
                     type: 'video',
@@ -1494,7 +1507,7 @@
                 videoEl.playsInline = true;
                 videoEl.preload = 'auto';
                 videoEl.onerror = () => {
-                    frameContainer.innerHTML = `<div class="review-error-msg">No se pudo cargar el video. Verifica que el enlace de Catbox termine en <strong>.mp4</strong> y sea público.</div>`;
+                    frameContainer.innerHTML = `<div class="review-error-msg">No se pudo cargar el video. Verifica que el enlace termine en <strong>.mp4</strong> y sea público.</div>`;
                 };
                 frameContainer.appendChild(videoEl);
                 videoEl.play().catch(() => {});
@@ -1549,7 +1562,7 @@
             const parsedMedia = parseMediaSource(customLink);
 
             if (parsedMedia) {
-                // Video .mp4 de Catbox o YouTube: abre flotando dentro de la misma página
+                // Video .mp4 o YouTube: abre flotando dentro de la misma página
                 reviewBtn.href = customLink;
                 reviewBtn.addEventListener('click', function (e) {
                     e.preventDefault();
